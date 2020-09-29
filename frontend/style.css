@@ -1,0 +1,133 @@
+body
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(41, 40, 40);
+    color: rgb(179, 179, 179);
+}
+
+div.banner
+{
+    display: block;
+    background-color: darkgreen;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 1.5%;
+    border-radius: 20px;
+}
+
+div.banner h1
+{
+    padding-left: 10%;
+    color: rgb(192, 192, 192);
+}
+
+div.caja
+{
+    background-color: rgba(8, 138, 30, 0.185);
+    display: block;
+    margin-left: 3%;
+    margin-right: 3%;
+    border-radius: 20px;
+    padding-top: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 1%;
+}
+
+div.linea
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+h2
+{
+    display: flex;
+    color: rgb(172, 171, 171);
+}
+
+
+button.compras
+{   
+    margin-top: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    width: 130px;
+    height: 45px;
+    vertical-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button.agregar
+{
+    background-color: rgb(92, 169, 241);
+}
+button.agregar:hover
+{
+    box-shadow: 0px 0px 6px rgb(92, 169, 241);
+}
+
+
+button.cancelar
+{
+    background-color: rgb(250, 140, 140);
+}
+button.cancelar:hover
+{
+    box-shadow: 0px 0px 7px rgb(219, 53, 31);
+}
+
+div.agregando, div.bloque-compras, div.lista-cargada
+{
+    display: block;
+    background-color: rgba(146, 245, 146, 0.13);
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 20px;
+}
+
+div.bloque-datos
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+input, select
+{
+    background-color: rgb(238, 238, 238);
+}
+
+button.submitCompra
+{
+    margin-top: 25px;
+    border-radius: 7px;
+    padding: 5px;
+    background-color: rgb(92, 169, 241);
+}
+
+button.submitCompra:hover
+{
+    box-shadow: 0px 0px 6px rgb(92, 169, 241);
+}
+
+div.boton
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+label.reducir-fuente
+{
+    font-size: small;
+}
+
+td
+{
+    display: flex;
+    justify-content: space-between;
+}
+
