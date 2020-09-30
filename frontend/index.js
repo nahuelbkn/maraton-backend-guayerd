@@ -185,11 +185,14 @@ function init()
                 {
                     let tarjeta = 
                     `
-                    <td>${compra.id}</td>
-                    <td>${compra.clientId}</td>
-                    <td>${compra.products}</td>
-                    <td>${compra.amount}</td>
-                    <td>${compra.paymentMethod}</td>
+                        <tr>
+                            <td>${compra.id}</td>
+                            <td>${compra.clientId}</td>
+                            <td>${compra.products}</td>
+                            <td>${compra.amount}</td>
+                            <td>${compra.paymentMethod}</td>
+                        </tr>
+
                     `;
 
 

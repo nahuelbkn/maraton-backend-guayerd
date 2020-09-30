@@ -125,9 +125,41 @@ label.reducir-fuente
     font-size: small;
 }
 
-td
-{
-    display: flex;
-    justify-content: space-between;
+table.compras {
+    border: 1px solid #00171F;
+    margin-left: 20px;
+    margin: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px 10px 10px 10px;
 }
+ 
+table.compras td {
+    border: 1px solid #00171F;
+    padding: 5px;
+    text-align: center;
+}
+ 
+table.compras thead {
+    background-color: #003a27;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
