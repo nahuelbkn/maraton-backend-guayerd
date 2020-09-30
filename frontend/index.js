@@ -290,6 +290,15 @@ function init()
 
             if ( objRespuesta.id )
             {
+                // Convertir fecha. (Se puede modularizar) -----------------------
+                let fechaOriginal = objRespuesta.createdAt;
+                let fecha = 
+                    fechaOriginal.substr(8,2) + "-" +
+                    fechaOriginal.substr(5,2) + "-" +
+                    fechaOriginal.substr(0,4) + " " +
+                    fechaOriginal.substr(11, 5);
+                //----------------------------------------------------------------
+
                 const divBusqueda = document.querySelector('div.busqueda');
                 divBusqueda.innerHTML = `<button class="volver" onclick="window.location.reload()">Volver al listado</button>`;
                 
@@ -314,7 +323,7 @@ function init()
                                 <td>${objRespuesta.products}</td>
                                 <td>${objRespuesta.amount}</td>
                                 <td>${objRespuesta.paymentMethod}</td>
-                                <td>${objRespuesta.createdAt}</td>
+                                <td>${fecha}</td>
                                 <td>
                                     <div class"botones-BM">
                                         <button class="put">Editar</button>
