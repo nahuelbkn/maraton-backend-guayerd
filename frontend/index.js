@@ -3,13 +3,18 @@ document.addEventListener("DOMContentLoaded", init);
 
 function init()
 {
-    // URL servidor
+    // Url servidor
     const URL_SERVER = "http://localhost:3001";
 
 
 
-    // DOM --------------------------------------------------------------------------------------------------------------------
+    // Dom --------------------------------------------------------------------------------------------------------------------
     const buttonAgregar = document.querySelector('button.agregar');
+    const buttonBusqueda = document.querySelector('button.busqueda');
+    const buttonEditar = document.querySelector('button.editar');
+    const buttonBorrar = document.querySelector('button.borrar');
+
+    
 
 
     // Ejecuciones necesarias -------------------------------------------------------------------------------------------------
@@ -19,6 +24,13 @@ function init()
 
     // Eventos ----------------------------------------------------------------------------------------------------------------
     buttonAgregar.addEventListener("click", agregarHandler);
+    buttonBusqueda.addEventListener("click", busquedaHandler); // TODO 
+    buttonEditar.addEventListener("click", editarHandler); // TODO 
+    buttonBorrar.addEventListener("click", borrarHandler);  // TODO 
+
+
+
+    // 
 
 
 
@@ -27,7 +39,7 @@ function init()
     {
         event.preventDefault();
 
-        // DOM div.agregar
+        // Dom div.agregar
         const divCompras = document.querySelector('div.nuevaCompra');
         
 
@@ -114,6 +126,7 @@ function init()
         if ( INPUT_clientId.value && INPUT_products.value && INPUT_amount.value && SELECT_paymentMethod.value )
         {
             let productos = INPUT_products.value.split(",");
+            console.log(productos)
             // Se podrían recibir datos de dos maneras diferentes:
             //      - "10"
             //      - "10,20,30,40,50,60,70"
@@ -167,6 +180,7 @@ function init()
                                     <td>Productos</td>
                                     <td>Monto de la compra</td>
                                     <td>Método de pago</td>
+                                    <td>Opciones</td>
                                 </tr>
                             </thead>
                             <tbody class="compras"></tbody>
@@ -191,19 +205,34 @@ function init()
                             <td>${compra.products}</td>
                             <td>${compra.amount}</td>
                             <td>${compra.paymentMethod}</td>
+                            <td>
+                                <div class"botones-BM">
+                                    <button class="put">Editar</button>
+                                    <button class="delete">Borrar</button>
+                                </div>
+                            </td>
                         </tr>
 
                     `;
-
 
                     tarjetas += tarjeta;
                 });
 
                 bodyTabla.innerHTML = tarjetas;
+
+
+                // Solo si hay al menos un elemento en la lista, se añade un buscador por ID de compra...
+                const divBusqueda = document.querySelector('div.lista-busqueda');
                 
+                let tarjetaBuscador =
+                `
+                    <input type="text" class="busqueda" placeholder="Buscar por ID">
+                    <button class="busqueda">Buscar</button>
+                `;
+                
+                divBusqueda.innerHTML += tarjetaBuscador;
             }
         }
-        
     }
 
     function enviarDatosAlServidor(OBJ_Mensaje)

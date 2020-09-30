@@ -40,10 +40,55 @@ div.linea
     justify-content: space-between;
 }
 
+div.lista-busqueda
+{
+    display: flex;
+    align-items: center;
+}
+
+div.lista-busqueda input.busqueda
+{
+    height: 20px;
+    background-color: rgba(146, 245, 146, 0.219);
+    border-radius: 7px;
+    color: rgb(179, 179, 179);
+}
+
+div.lista-busqueda button.busqueda
+{
+    margin-top: 2px;
+    margin-left: 7px;
+    height: 25px;
+    background-color: rgba(146, 245, 146, 0.219);
+    border-radius: 7px;
+    color: rgb(179, 179, 179);
+}
+
+button.put
+{
+    margin-top: 2px;
+    margin-left: 7px;
+    height: 25px;
+    background-color: rgba(226, 207, 98, 0.801);
+    border-radius: 7px;
+    color: rgb(0, 0, 0);
+}
+
+button.delete
+{
+    margin-top: 2px;
+    margin-left: 7px;
+    height: 25px;
+    background-color: rgba(245, 146, 146, 0.774);
+    border-radius: 7px;
+    color: rgb(0, 0, 0);
+}
+
 h2
 {
     display: flex;
     color: rgb(172, 171, 171);
+    padding-right: 18px;
 }
 
 
@@ -125,7 +170,13 @@ label.reducir-fuente
     font-size: small;
 }
 
+div.lista-cargada
+{
+    margin-top: 3%;
+}
+
 table.compras {
+    border-radius: 10px 10px 10px 10px;
     border: 1px solid #00171F;
     margin-left: 20px;
     margin: auto;
@@ -138,12 +189,15 @@ table.compras td {
     border: 1px solid #00171F;
     padding: 5px;
     text-align: center;
+    background-color: rgba(80, 184, 80, 0.103);
 }
  
 table.compras thead {
-    background-color: #003a27;
+    border: 1px solid #00171F;
+    background-color: #023a00;
     font-weight: 700;
     letter-spacing: 1px;
+}
 
 
 
