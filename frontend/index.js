@@ -10,9 +10,7 @@ function init()
 
     // Dom --------------------------------------------------------------------------------------------------------------------
     const buttonAgregar = document.querySelector('button.agregar');
-    const buttonBusqueda = document.querySelector('button.busqueda');
-    const buttonEditar = document.querySelector('button.editar');
-    const buttonBorrar = document.querySelector('button.borrar');
+    
 
     
 
@@ -24,9 +22,7 @@ function init()
 
     // Eventos ----------------------------------------------------------------------------------------------------------------
     buttonAgregar.addEventListener("click", agregarHandler);
-    buttonBusqueda.addEventListener("click", busquedaHandler); // TODO 
-    buttonEditar.addEventListener("click", editarHandler); // TODO 
-    buttonBorrar.addEventListener("click", borrarHandler);  // TODO 
+
 
 
 
@@ -57,6 +53,8 @@ function init()
                             <label for="clientId">Código cliente</label> </br>
                             <input type="number" name="clientId" id="clientId" class="clientId" placeholder="Ingrese el código del cliente.">
                         </div>
+
+                        </br>
                     
                         <div class="mini-bloque">
                             <label for="products">Productos</label> </br>
@@ -64,10 +62,14 @@ function init()
                             <label class="reducir-fuente" for="products">Si es más de un código, </br>ingreselos separados por comas.</label> </br>
                         </div>
 
+                        </br>
+
                         <div class="mini-bloque">
                             <label for="amount">Monto de la compra</label> </br>
                             <input type="number" name="amount" id="amount" class="amount" placeholder="Ingrese el monto de la compra.">
                         </div>
+
+                        </br>
 
                         <div class="mini-bloque">
                             <label for="paymentMethod">Método de pago</label> </br>
@@ -78,6 +80,8 @@ function init()
                                 <option value="Bitcoin">Bitcoin</option>
                             </select>
                         </div>
+
+                        </br>
                     </div>
 
                     <div class="boton"><button type="submit" class="submitCompra" id="submitCompra">Guardar compra</button></div>
@@ -122,6 +126,8 @@ function init()
         const INPUT_products = document.querySelector('input.products');
         const INPUT_amount = document.querySelector('input.amount');
         const SELECT_paymentMethod = document.querySelector('select.paymentMethod');
+        const divNuevaCompra = document.querySelector('div.nuevaCompra');
+        
 
         if ( INPUT_clientId.value && INPUT_products.value && INPUT_amount.value && SELECT_paymentMethod.value )
         {
@@ -140,19 +146,27 @@ function init()
                 "paymentMethod": SELECT_paymentMethod.value
             };
 
-            INPUT_clientId.value = "";
-            INPUT_products.value = "";
-            INPUT_amount.value = "";
-
-            cargarLista();
+            divNuevaCompra.innerHTML = `<h3>Compra guardada. Recargue la página.</h3>`;
             enviarDatosAlServidor(compra);
+        }
+    }
+
+    function busquedaHandler(event) // TODO 
+    {
+        event.preventDefault();
+
+        const INPUT_busqueda = document.querySelector('input.busqueda');
+
+        if ( INPUT_busqueda.value )
+        {
+            busquedaPorID(INPUT_busqueda.value);
         }
     }
 
 
 
     // Funciones extra ----------------------------------------------------------------------
-    function cargarLista()
+    function cargarLista() // GET/compras
     {
         fetch(URL_SERVER + "/compras")
         .then(function(response)
@@ -212,7 +226,6 @@ function init()
                                 </div>
                             </td>
                         </tr>
-
                     `;
 
                     tarjetas += tarjeta;
@@ -226,16 +239,21 @@ function init()
                 
                 let tarjetaBuscador =
                 `
-                    <input type="text" class="busqueda" placeholder="Buscar por ID">
-                    <button class="busqueda">Buscar</button>
+                    <div class="busqueda">
+                        <input type="text" class="busqueda" placeholder="Buscar por ID">
+                        <button class="busqueda">Buscar</button>
+                    </div>
                 `;
                 
                 divBusqueda.innerHTML += tarjetaBuscador;
+
+                const BUTTON_busqueda = document.querySelector('button.busqueda');
+                BUTTON_busqueda.addEventListener("click", busquedaHandler);
             }
         }
     }
 
-    function enviarDatosAlServidor(OBJ_Mensaje)
+    function enviarDatosAlServidor(OBJ_Mensaje) // POST/compras
     {
         fetch(`${URL_SERVER}/compras`, {
             method:'POST',
@@ -250,6 +268,79 @@ function init()
         {
             console.log(mensaje);
         });
+    }
+
+    function busquedaPorID(id) // GET/compras/ID
+    {
+        fetch(`${URL_SERVER}/compras/${id}`)
+        .then(function(response)
+        {
+            return response.json();
+        })
+        .then(function(respuesta)
+        {
+            mostrarRespuesta(respuesta);
+        });
+
+
+        let mostrarRespuesta = function(objRespuesta)
+        {
+            const divLista = document.querySelector('div.lista-cargada');
+            let tarjeta = "";
+
+            if ( objRespuesta.id )
+            {
+                const divBusqueda = document.querySelector('div.busqueda');
+                divBusqueda.innerHTML = `<button class="volver" onclick="window.location.reload()">Volver al listado</button>`;
+                
+                tarjeta = 
+                `
+                    <table class="compras">
+                        <thead>
+                            <tr>
+                                <td>ID compra</td>
+                                <td>Código de cliente</td>
+                                <td>Productos</td>
+                                <td>Monto de la compra</td>
+                                <td>Método de pago</td>
+                                <td>Fecha</td>
+                                <td>Opciones</td>
+                            </tr>
+                        </thead>
+                        <tbody class="compras">
+                            <tr>
+                                <td>${objRespuesta.id}</td>
+                                <td>${objRespuesta.clientId}</td>
+                                <td>${objRespuesta.products}</td>
+                                <td>${objRespuesta.amount}</td>
+                                <td>${objRespuesta.paymentMethod}</td>
+                                <td>${objRespuesta.createdAt}</td>
+                                <td>
+                                    <div class"botones-BM">
+                                        <button class="put">Editar</button>
+                                        <button class="delete">Borrar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+            }
+            else
+            {
+                tarjeta = 
+                `
+                    <div class="not-found-id">
+                        <h3>
+                            No se encontró el ID.
+                            <button class="volver" onclick="window.location.reload()">Volver al listado</button>
+                        </h3>
+                    </div>
+                `;             
+            }
+
+            divLista.innerHTML = tarjeta;
+        }
     }
 }
 

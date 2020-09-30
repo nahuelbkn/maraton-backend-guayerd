@@ -27,6 +27,7 @@ div.caja
     display: block;
     margin-left: 3%;
     margin-right: 3%;
+    margin-bottom: 4%;
     border-radius: 20px;
     padding-top: 1%;
     padding-left: 3%;
@@ -54,7 +55,7 @@ div.lista-busqueda input.busqueda
     color: rgb(179, 179, 179);
 }
 
-div.lista-busqueda button.busqueda
+div.lista-busqueda button.busqueda, button.volver
 {
     margin-top: 2px;
     margin-left: 7px;
@@ -138,12 +139,12 @@ div.agregando, div.bloque-compras, div.lista-cargada
 div.bloque-datos
 {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 input, select
 {
-    background-color: rgb(238, 238, 238);
+    background-color: rgba(158, 238, 158, 0.815);
 }
 
 button.submitCompra
@@ -182,7 +183,6 @@ table.compras {
     margin: auto;
     width: 100%;
     border-collapse: collapse;
-    border-radius: 10px 10px 10px 10px;
 }
  
 table.compras td {
