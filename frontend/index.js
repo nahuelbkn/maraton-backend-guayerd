@@ -36,7 +36,7 @@ function init()
         event.preventDefault();
 
         // Dom div.agregar
-        const divCompras = document.querySelector('div.nuevaCompra');
+        const divNuevaCompra = document.querySelector('div.nuevaCompra');
         
 
         if( buttonAgregar.classList.toString().includes("agregar") )
@@ -88,9 +88,9 @@ function init()
                 </form>
             `;
 
-            divCompras.classList.remove("agregar");
-            divCompras.classList.add("agregando");
-            divCompras.innerHTML = tarjetaFormAgregar;
+            divNuevaCompra.classList.remove("agregar");
+            divNuevaCompra.classList.add("agregando");
+            divNuevaCompra.innerHTML = tarjetaFormAgregar;
 
             // Alterno función botón
             buttonAgregar.classList.remove("agregar");
@@ -103,16 +103,14 @@ function init()
         }
         else if ( buttonAgregar.classList.toString().includes("cancelar") )
         {
-            divCompras.innerHTML = "";
-            divCompras.classList.remove("agregando");
+            divNuevaCompra.classList.remove("agregando");
+            divNuevaCompra.innerHTML = "";
 
             // Alterno función botón
             buttonAgregar.classList.remove("cancelar");
             buttonAgregar.classList.add("agregar");
             buttonAgregar.textContent = "Agregar compra";
         }
-
-        
     }
 
 
@@ -132,7 +130,6 @@ function init()
         if ( INPUT_clientId.value && INPUT_products.value && INPUT_amount.value && SELECT_paymentMethod.value )
         {
             let productos = INPUT_products.value.split(",");
-            console.log(productos)
             // Se podrían recibir datos de dos maneras diferentes:
             //      - "10"
             //      - "10,20,30,40,50,60,70"
@@ -146,12 +143,11 @@ function init()
                 "paymentMethod": SELECT_paymentMethod.value
             };
 
-            divNuevaCompra.innerHTML = `<h3>Compra guardada. Recargue la página.</h3>`;
             enviarDatosAlServidor(compra);
         }
     }
 
-    function busquedaHandler(event) // TODO 
+    function busquedaHandler(event)
     {
         event.preventDefault();
 
@@ -235,17 +231,15 @@ function init()
 
 
                 // Solo si hay al menos un elemento en la lista, se añade un buscador por ID de compra...
-                const divBusqueda = document.querySelector('div.lista-busqueda');
+                const divBusqueda = document.querySelector('div.busqueda');
                 
                 let tarjetaBuscador =
                 `
-                    <div class="busqueda">
-                        <input type="text" class="busqueda" placeholder="Buscar por ID">
-                        <button class="busqueda">Buscar</button>
-                    </div>
+                    <input type="text" class="busqueda" placeholder="Buscar por ID">
+                    <button class="busqueda">Buscar</button>
                 `;
                 
-                divBusqueda.innerHTML += tarjetaBuscador;
+                divBusqueda.innerHTML = tarjetaBuscador;
 
                 const BUTTON_busqueda = document.querySelector('button.busqueda');
                 BUTTON_busqueda.addEventListener("click", busquedaHandler);
@@ -266,7 +260,15 @@ function init()
         })
         .then(function(mensaje)
         {
+            cargarLista();
             console.log(mensaje);
+            const divNuevaCompra = document.querySelector('div.nuevaCompra');
+            divNuevaCompra.innerHTML = `<h3>Compra guardada.</h3>`;
+
+            // Alterno función botón
+            buttonAgregar.classList.remove("cancelar");
+            buttonAgregar.classList.add("agregar");
+            buttonAgregar.textContent = "Agregar compra";
         });
     }
 
@@ -285,6 +287,11 @@ function init()
 
         let mostrarRespuesta = function(objRespuesta)
         {
+            const divNuevaCompra = document.querySelector('div.nuevaCompra');
+            
+            divNuevaCompra.innerHTML = "";
+            divNuevaCompra.classList.remove("agregando");
+
             const divLista = document.querySelector('div.lista-cargada');
             let tarjeta = "";
 
@@ -296,7 +303,8 @@ function init()
                     fechaOriginal.substr(8,2) + "-" +
                     fechaOriginal.substr(5,2) + "-" +
                     fechaOriginal.substr(0,4) + " " +
-                    fechaOriginal.substr(11, 5);
+                    fechaOriginal.substr(11,5);
+                    // https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/String/substr
                 //----------------------------------------------------------------
 
                 const divBusqueda = document.querySelector('div.busqueda');
