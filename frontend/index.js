@@ -285,8 +285,10 @@ function init()
 // Funciones ONCLICK -------------------------------------------------------------------------------------------
 function editarCompra(idEditar)
 {
+    const divBotonAgregar = document.querySelector('div.agregar-compra');
     const divEDIT = document.querySelector('div.edit');
 
+    divBotonAgregar.innerHTML = "";
     divEDIT.classList.add("editando");
 
     busquedaPorID(idEditar)
@@ -323,7 +325,7 @@ function editarCompra(idEditar)
             <div class="mini-bloque">
                 <label for="paymentMethod">Método de pago</label> </br>
                 <select name="paymentMethod" id="paymentMethod" class="paymentMethod">
-                    <option disabled selected class="disabled">Seleccione método de pago.</option>
+                    <option disabled selected class="disabled" value="0">Seleccione método de pago.</option>
                     <option value="Tarjeta de crédito">Tarjeta de crédito</option>
                     <option value="Efectivo">Efectivo</option>
                     <option value="Bitcoin">Bitcoin</option>
@@ -548,9 +550,13 @@ function actualizarDatosEnServidor(idEditar, OBJ_Mensaje)
     {
         return response.json()
     })
-    .then(function(mensaje)
+    .then(function(respuesta)
     {
-        console.log(mensaje);
+        // Aviso por consola (Desde el servidor).
+        console.log(respuesta.mensaje);
+
+        busquedaPorID(idEditar);
+
         const divEditando = document.querySelector('div.editando');
         divEditando.innerHTML = `<h3>Cambios guardados.</h3>`;
     });
