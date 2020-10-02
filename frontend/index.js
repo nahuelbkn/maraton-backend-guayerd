@@ -335,7 +335,7 @@ function editarCompra(idEditar)
 
         <div class="boton">
             <button class="cancelarCambios" id="cancelarCambios">Cancelar cambios</button>
-            <button type="submit" class="submitCambios" id="submitCambios">Guardar cambios</button>
+            <button type="submit" class="submitCambios" id="submitCambios" idcompra="${idEditar}">Guardar cambios</button>
         </div>
     `;
 
@@ -343,7 +343,7 @@ function editarCompra(idEditar)
     const buttonSaveEdit = document.querySelector('button.submitCambios');
 
     buttonCancelEdit.addEventListener("click", cancelEditHandler)
-    buttonSaveEdit.addEventListener("click", saveEditHandler(idEditar, event))
+    buttonSaveEdit.addEventListener("click", saveEditHandler)
     
 
     function cancelEditHandler(event)
@@ -361,9 +361,11 @@ function editarCompra(idEditar)
     }
 
 
-    function saveEditHandler(idEdit, event)
+    function saveEditHandler(event)
     {
         event.preventDefault();
+
+       
 
         const INPUT_clientId = document.querySelector('input.clientId');
         const INPUT_products = document.querySelector('input.products');
@@ -373,6 +375,12 @@ function editarCompra(idEditar)
 
         if ( INPUT_clientId.value && INPUT_products.value && INPUT_amount.value && SELECT_paymentMethod.value != 0 )
         {
+            console.log(event.target);
+
+            const ID_EDIT = event.target.getAttribute("idcompra");
+            console.log(ID_EDIT);
+
+
             let productos = INPUT_products.value.split(",");
             // Se podrían recibir datos de dos maneras diferentes:
             //      - "10"
@@ -387,7 +395,7 @@ function editarCompra(idEditar)
                 "paymentMethod": SELECT_paymentMethod.value
             };
 
-            actualizarDatosEnServidor(idEdit, compraActualizada);
+            actualizarDatosEnServidor(ID_EDIT, compraActualizada);
         }
     
     }
@@ -413,15 +421,20 @@ function borrarCompra(idBorrar)
                     <h3>
                         Compra borrada.
                     </h3>
-
-                    <button class="volver" onclick="window.location.reload()">Volver al listado</button>
                 </div>
             `;
 
     
             divLista.innerHTML = tarjeta;
 
+            const divBusqueda = document.querySelector('div.busqueda');            
+            const divNuevaCompra = document.querySelector('div.nuevaCompra');
             const divEDIT = document.querySelector('div.edit');
+
+            divBusqueda.innerHTML = `<button class="volver" onclick="window.location.reload()">Volver al listado</button>`;
+            divNuevaCompra.classList.remove("agregando");
+            divNuevaCompra.innerHTML = "";
+
             divEDIT.classList.remove("editando");
             divEDIT.innerHTML = "";
         });
@@ -510,11 +523,14 @@ function busquedaPorID(id)
             `
                 <div class="not-found-id">
                     <h3>
-                        No se encontró el ID.
-                        <button class="volver" onclick="window.location.reload()">Volver al listado</button>
+                        No se encontró el ID (${id}).
                     </h3>
                 </div>
-            `;             
+            `;           
+            
+            const divBusqueda = document.querySelector('div.busqueda');
+            divBusqueda.innerHTML = `<button class="volver" onclick="window.location.reload()">Volver al listado</button>`;
+            
         }
 
         divLista.innerHTML = tarjeta;
