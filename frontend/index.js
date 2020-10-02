@@ -414,6 +414,9 @@ function borrarCompra(idBorrar)
             return response.json();
         }).then(function(respuesta)
         {
+            const divBotonAgregar = document.querySelector('div.agregar-compra');
+            divBotonAgregar.innerHTML = "";
+
             console.log(respuesta.mensaje || respuesta.error );
             
             const divLista = document.querySelector('div.lista-cargada');
@@ -449,6 +452,9 @@ function borrarCompra(idBorrar)
 
 function busquedaPorID(id)
 {
+    const divBotonAgregar = document.querySelector('div.agregar-compra');
+    divBotonAgregar.innerHTML = "";
+    
     fetch(`${URL_SERVER}/compras/${id}`)
     .then(function(response)
     {
