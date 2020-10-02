@@ -1,0 +1,2 @@
+En editar, mostrar nuevos datos.
+En editar, quitar boton nueva compra
